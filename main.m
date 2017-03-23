@@ -32,7 +32,7 @@ Yt=Y';
 V=(1/n)*Y*Yt; % matrice des variances-covariances
 [U0,vp1]=eig(V); % diagonalisation de V
 U=Yt*U0; % relation vectP
-for (i=1:400)
+for (i=1:351)
     U(:,i)=U(:,i)/norm(U(:,i),2);
 end
 vp=diag(vp1);
@@ -55,30 +55,32 @@ titre=cell(2,1,nb1*nb2);
 % % close all
 % % gallerieBIS(P,n1,n2,nb1,nb2,titre);
 
-image1 = imread('images/s4/3.pgm');
-G=image1(:,:,1);
+% image1 = imread('images/s4/3.pgm');
+% G=image1(:,:,1);
+
+G=persmiss(:,1)';
 G=double(G(:));
 % G=Y(1,:); % visage 1 complet (en ligne)
 H=(G'-g)*P;
 
-MH=repmat(H',1,40); %40 copies du visage
+MH=repmat(H',1,39); %40 copies du visage
 
 for (j=1:39)
     MH(j*10+1:end,j)=0;
 end
 
 R=P*MH; % (reconstitution wdes images à partir coefs sur faces propres 
-R=R+repmat(g',1,40);
+R=R+repmat(g',1,39);
 
 % tableau de cellules pour les titres des graphiques
 % calcul des cos2
-titre=cell(2,1,40);
-no2=norm(R(:,40),2)^2;
-for (j=1:40)
-    no=norm(R(:,j),2)^2;
-    ti={['dim', num2str(10*j),' : ',num2str(100*cum(10*j),'%.1f'),'%'];['cos2 : ',num2str(100*no/no2,'%.1f'),'%']};
-    titre(:,:,j)=ti;
-end
+titre=cell(2,1,39);
+no2=norm(R(:,39),2)^2;
+% for (j=1:39)
+%     no=norm(R(:,j),2)^2;
+%     ti={['dim', num2str(*j),' : ',num2str(100*cum(10*j),'%.1f'),'%'];['cos2 : ',num2str(100*no/no2,'%.1f'),'%']};
+%     titre(:,:,j)=ti;
+% end
 
 close all
-gallerieBIS(R,n1,n2,4,10,titre);
+gallerieBIS(R,n1,n2,4,9,titre);
