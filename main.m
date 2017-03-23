@@ -2,11 +2,11 @@ clear all; close all;
 % lecture de la base de visages
 % X=matrice de données 1 colonne = 1 visage = 1 image réarrangée en vecteur
 
-[X y width height names] = lire_base('images');
+[X, y, width, height, names] = lire_base('images');
 
 index_personne= 1;
 
-[X persmiss]=extrairePersonne(X,index_personne);
+[X, persmiss]=extrairePersonne(X,index_personne);
 
 
 for i = 1:39
@@ -32,7 +32,7 @@ Yt=Y';
 V=(1/n)*Y*Yt; % matrice des variances-covariances
 [U0,vp1]=eig(V); % diagonalisation de V
 U=Yt*U0; % relation vectP
-for (i=1:351)
+for i=1:351
     U(:,i)=U(:,i)/norm(U(:,i),2);
 end
 vp=diag(vp1);
@@ -44,7 +44,7 @@ tauxO=vpo/Intot; % part d'inertie pour axes principaux
 
 % calcul de la part d'inertie cummulée 
 tmp=0;
-for (i=1:size(tauxO,1))
+for i=1:size(tauxO,1)
     tmp=tmp+tauxO(i);
     cum(i)=tmp;
 end
@@ -65,7 +65,7 @@ H=(G'-g)*P;
 
 MH=repmat(H',1,39); %40 copies du visage
 
-for (j=1:39)
+for j=1:39
     MH(j*10+1:end,j)=0;
 end
 
