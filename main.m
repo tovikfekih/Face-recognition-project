@@ -27,7 +27,7 @@ nvar=size(X,2); %nb images = nb variable
 
 g=mean(X);
 ecart=std(X);
-Y=X-repmat(g,400,1); % matrice des données centrées
+Y=X-repmat(g,351,1); % matrice des données centrées
 Yt=Y';
 V=(1/n)*Y*Yt; % matrice des variances-covariances
 [U0,vp1]=eig(V); % diagonalisation de V
