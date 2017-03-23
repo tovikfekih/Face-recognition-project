@@ -1,9 +1,8 @@
-cd '//qlsrv/vg502574/Bureau/Projet tut/TD3/projet'
 clear all; close all;
 % lecture de la base de visages
 % X=matrice de données 1 colonne = 1 visage = 1 image réarrangée en vecteur
 
-[X y width height names] = lire_base('//qlsrv/vg502574/Bureau/Projet tut/att_face');
+[X y width height names] = lire_base('images');
 
 index_personne= 1;
 
@@ -56,7 +55,7 @@ titre=cell(2,1,nb1*nb2);
 % % close all
 % % gallerieBIS(P,n1,n2,nb1,nb2,titre);
 
-image1 = imread('//qlsrv/vg502574/Bureau/Projet tut/att_face/s4/3.pgm');
+image1 = imread('images/s4/3.pgm');
 G=image1(:,:,1);
 G=double(G(:));
 % G=Y(1,:); % visage 1 complet (en ligne)
