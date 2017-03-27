@@ -70,7 +70,7 @@ no2=norm(R(:,40),2)^2;
 close all
 gallerieBIS(R,n1,n2,4,10,titre);
 
-%====================PROJETER LES IMAGES sur l'eigenfaces=========================
+% ====================PROJETER LES IMAGES sur l'eigenfaces=========================
 %%%%%%% finding the projection of each image vector 
 %%%%%%% on the facespace (where the eigenfaces are the co-ordinates or dimensions) %%%%%
 %% A(:,i) c'est les images colonne
@@ -80,23 +80,16 @@ for i = 1 : size(eigenfaces,2)
     temp = eigenfaces' * A(:,i);
     projectimg = [projectimg temp];
 end
-%====================PROJETER LES IMAGES sur l'eigenfaces=========================
-%====================TRAITEMENT DE L'IMAGE TEST===========================
+% ====================PROJETER LES IMAGES sur l'eigenfaces=========================
+
+
+% ====================TRAITEMENT DE L'IMAGE TEST===========================
 % test_img = rgb2gray(imread(test));
+
 im_test=imread(test);
 [r c] = size(im_test);
 temp = reshape(im_test',r*c,1); % creating (MxN)x1 image vector from the 2D image
 temp = double(temp)-m; % mean subtracted 
+
 projtestimg = eigenfaces'*temp; % projection of test image onto the facespace
-%====================TRAITEMENT DE L'IMAGE TEST===========================
-%====================CALCUL DES DISTANCES EUCLUDIENNE====================
-%% sa utilise les vecteurs Projtestimg et le vecteur Projectimg
-euclide_dist = [];
-for i=1 : size(eigenfaces,2)
-    temp = (norm(projtestimg-projectimg(:,i)))^2;
-    euclide_dist = [euclide_dist temp];
-end
-[distances distances_index] = sort(euclide_dist);
-%Tadaaaaa
-% le programme est supposé finir ici
-%====================CALCUL DES DISTANCES EUCLUDIENNE====================
+% ====================TRAITEMENT DE L'IMAGE TEST===========================
