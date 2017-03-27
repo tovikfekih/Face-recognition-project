@@ -42,11 +42,14 @@ titre=cell(2,1,nb1*nb2);
 % % close all
 % % gallerieBIS(P,n1,n2,nb1,nb2,titre);
 
-image1 = imread('images/s4/3.pgm');
+%====================TRAITEMENT DE L'IMAGE TEST===========================
+image1 = imread('images/s1/1.pgm');
 G=image1(:,:,1);
 G=double(G(:));
 % G=Y(1,:); % visage 1 complet (en ligne)
-projtestimg=(G'-g)*P;
+projtestimg=(G'-g)*P; %projection dans la base des eigenfaces
+
+%====================TRAITEMENT DE L'IMAGE TEST===========================
 
 MH=repmat(projtestimg',1,40); %40 copies du visage
 
