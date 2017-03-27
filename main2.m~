@@ -46,9 +46,9 @@ image1 = imread('images/s4/3.pgm');
 G=image1(:,:,1);
 G=double(G(:));
 % G=Y(1,:); % visage 1 complet (en ligne)
-projtestimg=(G'-g)*P;
+H=(G'-g)*P;
 
-MH=repmat(projtestimg',1,40); %40 copies du visage
+MH=repmat(H',1,40); %40 copies du visage
 
 for j=1:40
     MH(j*10+1:end,j)=0;
@@ -101,17 +101,10 @@ end
 %% sa utilise les vecteurs Projtestimg et le vecteur Projectimg
 euclide_dist = [];
 for i=1 : size(P,2)
-    temp = (norm(projtestimg-projectimg(i,:)))^2;
+    temp = (norm(projtestimg-projectimg(:,i)))^2;
     euclide_dist = [euclide_dist temp];
 end
 [distances distances_index] = sort(euclide_dist);
 %Tadaaaaa
 % le programme est suppos� finir ici
-%====================CALCUL DES DISTANCES EUCLUDIENNE AU BARYCENTRE========
-
-euclide_dist_bary = [];
-for i=1 : size(barycenters,1)
-    temp = (norm(projtestimg-barycenters(i,:)))^2;
-    euclide_dist_bary = [euclide_dist_bary temp];
-end
-[distances_bary distances_index_bary] = sort(euclide_dist_bary);
+%====================CALCUL DES DISTANCES EUCLUDIENNE====================
