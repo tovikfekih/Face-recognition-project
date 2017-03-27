@@ -42,7 +42,7 @@ titre=cell(2,1,nb1*nb2);
 % % close all
 % % gallerieBIS(P,n1,n2,nb1,nb2,titre);
 
-image1 = imread('images/s1/1.pgm');
+image1 = imread('images/s4/3.pgm');
 G=image1(:,:,1);
 G=double(G(:));
 % G=Y(1,:); % visage 1 complet (en ligne)
