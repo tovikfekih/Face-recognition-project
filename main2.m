@@ -73,14 +73,22 @@ gallerieBIS(R,n1,n2,4,10,titre);
 %====================PROJETER LES IMAGES sur l'eigenfaces=========================
 %%%%%%% finding the projection of each image vector 
 %%%%%%% on the facespace (where the eigenfaces are the co-ordinates or dimensions) %%%%%
-%% A(:,i) c'est les images colonne
-%% eingenfaces : Les visages propores
+%% X(i,:) c'est les images lignes
+%% P : Les visages propores
 projectimg = [ ];  % projected image vector matrix
-for i = 1 : size(eigenfaces,2)
-    temp = eigenfaces' * A(:,i);
-    projectimg = [projectimg temp];
+for i = 1 : size(P,2)
+    temp = (X(i,:)-g)*P;
+    projectimg = [projectimg; temp];
 end
-%====================PROJETER LES IMAGES sur l'eigenfaces=========================
+%====================CALCULE DES BARYCENTRES==============================
+
+barycenters=[];
+temp=0;
+for i = 1 : 40
+  temp = sum (projectimg((i-1)*10+1:(i-1)*10+10,:))/10;
+  barycenters = [barycenters ; temp];
+end
+
 %====================TRAITEMENT DE L'IMAGE TEST===========================
 % test_img = rgb2gray(imread(test));
 im_test=imread(test);
@@ -98,5 +106,5 @@ for i=1 : size(eigenfaces,2)
 end
 [distances distances_index] = sort(euclide_dist);
 %Tadaaaaa
-% le programme est supposé finir ici
+% le programme est supposï¿½ finir ici
 %====================CALCUL DES DISTANCES EUCLUDIENNE====================
