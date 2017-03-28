@@ -83,7 +83,7 @@ for i = 1 : size(P,2)
     temp = (X(i,:)-g)*P;
     projectimg = [projectimg; temp];
 end
-%====================CALCULE DES BARYCENTRES===============================
+%====================CALCULE DES BARYCENTRES==============================
 
 barycenters=[];
 temp=0;
@@ -91,7 +91,16 @@ for i = 1 : 40
   temp = sum (projectimg((i-1)*10+1:(i-1)*10+10,:))/10;
   barycenters = [barycenters ; temp];
 end
-%====================DISTANCE MAX ENTRE BARYCENTRES========================
+
+%====================TRAITEMENT DE L'IMAGE TEST===========================
+% test_img = rgb2gray(imread(test));
+% im_test=imread(test);
+% [r c] = size(im_test);
+% temp = reshape(im_test',r*c,1); % creating (MxN)x1 image vector from the 2D image
+% temp = double(temp)-m; % mean subtracted 
+% projtestimg = eigenfaces'*temp; % projection of test image onto the facespace
+%====================TRAITEMENT DE L'IMAGE TEST===========================
+%====================DISTANCE MAX BARYCENTRES==============================
 bary_dist = [];
 
 for i=1 : 40
@@ -103,7 +112,7 @@ end
 
 D=max(bary_dist);
 D=max(D);
-%====================CALCUL DES DISTANCES EUCLUDIENNE======================
+%====================CALCUL DES DISTANCES EUCLUDIENNE====================
 %% sa utilise les vecteurs Projtestimg et le vecteur Projectimg
 % euclide_dist = [];
 % for i=1 : size(P,2)
