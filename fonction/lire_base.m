@@ -1,7 +1,7 @@
-% à revoir mais ça marche
+% ï¿½ revoir mais ï¿½a marche
 
 
-function [X y width height names] = lire_base(path)
+function [X y width height names n] = lire_base(path)
 	%% Read images from a given path and return the Imagematrix X.
 	%%
 	%% Returns:
@@ -22,12 +22,12 @@ function [X y width height names] = lire_base(path)
 	for i=1:length(folder)
 		subject = folder{i};
 		images = list_files([path, filesep, subject]);
-		if(length(images) == 0) % à modifier
+		if(length(images) == 0) % ï¿½ modifier
 			continue; %% dismiss files or empty folder
 		end
    
 		added = 0;
-		names{n} = subject; % à modifier : faire préallocation
+		names{n} = subject; % ï¿½ modifier : faire prï¿½allocation
 		%% build image matrix and class vector
 		for j=1:length(images)
 			%% absolute path
@@ -69,5 +69,7 @@ function [X y width height names] = lire_base(path)
 		if ~(added == 0)
 			n = n + 1;
 		end
-	end
+    end
+    
+    n=n-1;
 end

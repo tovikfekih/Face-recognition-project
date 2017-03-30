@@ -1,11 +1,9 @@
 clear all; close all;
-% lecture de la base de visages
-% X=matrice de donn�es 1 colonne = 1 visage = 1 image r�arrang�e en vecteur
 
 [X, y, width, height, names, npers] = lire_base('images');
 
-X=X';
-% pour un visage
+X=X'; 
+
 n1=height; %nb pixels hauteur
 n2=width; %nb pixels largeur
 n=width*height; %nb pixels image = nb individus
@@ -29,55 +27,15 @@ Intot=sum(vpo); % inertie totale
 taux=vp/Intot; 
 tauxO=vpo/Intot; % part d'inertie pour axes principaux
 
-% calcul de la part d'inertie cummul�e 
-tmp=0;
-for i=1:size(tauxO,1)
-    tmp=tmp+tauxO(i);
-    cum(i)=tmp;
-end
-
-nb1=4;
-nb2=10;
-titre=cell(2,1,nb1*nb2);
-% % close all
-% % gallerieBIS(P,n1,n2,nb1,nb2,titre);
-
-%====================TRAITEMENT DE L'IMAGE TEST===========================
+%====================PROJECTION DE L'IMAGE TEST===========================
 image1 = imread('images/s1/1.pgm');
 G=image1(:,:,1);
 G=double(G(:));
 % G=Y(1,:); % visage 1 complet (en ligne)
 projtestimg=(G'-g)*P; %projection dans la base des eigenfaces
 
-%====================TRAITEMENT DE L'IMAGE TEST===========================
+%====================PROJECTION DE LA BASE D'IMAGES=========================
 
-MH=repmat(projtestimg',1,40); %40 copies du visage
-
-for j=1:40
-    MH(j*10+1:end,j)=0;
-end
-
-R=P*MH; % (reconstitution wdes images � partir coefs sur faces propres 
-R=R+repmat(g',1,40);
-
-% tableau de cellules pour les titres des graphiques
-% calcul des cos2
-titre=cell(2,1,40);
-no2=norm(R(:,40),2)^2;
-% for (j=1:39)
-%     no=norm(R(:,j),2)^2;
-%     ti={['dim', num2str(*j),' : ',num2str(100*cum(10*j),'%.1f'),'%'];['cos2 : ',num2str(100*no/no2,'%.1f'),'%']};
-%     titre(:,:,j)=ti;
-% end
-
-close all
-gallerieBIS(R,n1,n2,4,10,titre);
-
-%====================PROJETER LES IMAGES sur l'eigenfaces=========================
-%%%%%%% finding the projection of each image vector 
-%%%%%%% on the facespace (where the eigenfaces are the co-ordinates or dimensions) %%%%%
-%% X(i,:) c'est les images lignes
-%% P : Les visages propores
 projectimg = [ ];  % projected image vector matrix
 for i = 1 : size(P,2)
     temp = (X(i,:)-g)*P;
@@ -91,6 +49,12 @@ for i = 1 : npers
   temp = sum (projectimg((i-1)*nimpers+1:(i-1)*nimpers+nimpers,:))/nimpers;
   barycenters = [barycenters ; temp];
 end
+
+%====================DISTANCE IMAGE ET PROJECTION========================
+% Convertion de la projection en image
+
+
+
 %====================DISTANCE MAX ENTRE BARYCENTRES========================
 bary_dist = [];
 
@@ -103,16 +67,7 @@ end
 
 D=max(bary_dist);
 D=max(D);
-%====================CALCUL DES DISTANCES EUCLUDIENNE======================
-%% sa utilise les vecteurs Projtestimg et le vecteur Projectimg
-% euclide_dist = [];
-% for i=1 : size(P,2)
-%     temp = (norm(projtestimg-projectimg(i,:)))^2;
-%     euclide_dist = [euclide_dist temp];
-% end
-% [distances distances_index] = sort(euclide_dist);
-%Tadaaaaa
-% le programme est suppos� finir ici
+
 %====================CALCUL DES DISTANCES EUCLUDIENNE AU BARYCENTRE========
 
 euclide_dist_bary = [];
